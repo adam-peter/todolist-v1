@@ -1,43 +1,42 @@
-//Requires
-const express = require('express')
+//requires:
+const express = require("express")
 const bodyParser = require("body-parser")
+const secret = require("./secret.json")
+
+//setup
 const app = express()
-
-
-
-//Setup
 const port = 3000
-app.set("view engine", "ejs")
-app.use(bodyParser.urlencoded({extended: true}))
-app.use(bodyParser.json())
-app.use(express.static(__dirname+"/public"));
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
+app.set('view engine', 'ejs')
+app.use(express.static(__dirname+"/public"))
 
-//Variables & Constants
-var items = ["Buy food", "Cook food", "Eat food"]
+//variables
+let items = ["Buy food", "Cook food", "Eat food"]
 
-//Get
-app.get('/', (req, res) => {
-  var date = new Date()
-  //formatting date:
-  var options = {
+//get
+app.get("/", (req, res)=>{
+  const options = {
     weekday: "long",
-    day: "numeric",
-    month: "long"
+    month: "long",
+    day: "numeric"
   }
-
-  //render:
-  var day = date.toLocaleDateString("en-US", options)
-  res.render("list",
-  {kindOfDay: day,
-  items: items})
+  const day = new Date().toLocaleDateString("en-US", options)
+  console.log(day);
+  res.render("list", {
+      day: day,
+      items: items
+  })
 })
 
 app.post("/", (req, res)=>{
-  var item = req.body.nextItem
-  items.push(item)
+  items.push(req.body.item)
   res.redirect("/")
 })
 
 
-//Listen for the port
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+
+
+app.listen(port, ()=>{
+  console.log("Server runnin on port 3000!");
+})

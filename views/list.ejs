@@ -10,16 +10,17 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <h1><%= kindOfDay %></h1>
-  <ul>
-    <% for (let i = 0; i<items.length; i++){%>
-      <li><%= items[i] %></li>
-    <%} %> 
-  </ul>
-  <form action="/" method="post" class="form-container">
-    <input class="form-item" type="text" name="nextItem" placeholder="Next Item">
-    <button class="form-button btn btn-sm btn-outline-dark" name="button" type="submit">Add</button>
-    
+  <h1><%= day %></h1>
+  <form action="/" method="post">
+    <ul>
+      <%for (let i in items){%>
+        <li><%= items[i] %></li>
+      <% }%>
+    </ul>
+    <div class="form-container">
+      <input class="enter-next" name="item" type="text" placeholder="Enter next item">
+      <button class="btn btn-sm btn-outline-dark" type="submit">Add</button>
+    </div>
   </form>
 
   <!-- JavaScript Bundle with Popper -->
