@@ -2,29 +2,24 @@
 const express = require("express")
 const bodyParser = require("body-parser")
 const secret = require("./secret.json")
+const date = require(__dirname+"/date.js")
 
 //setup
 const app = express()
 const port = 3000
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs')
 app.use(express.static(__dirname + "/public"))
 
 //variables
-let days = ["Buy food", "Cook food", "Eat food"]
-let workItems = []
+const days = ["Buy food", "Cook food", "Eat food"]
+const workItems = []
 
 //get:
 app.get("/", (req, res) => {
-  const options = {
-    weekday: "long",
-    month: "long",
-    day: "numeric"
-  }
-  const day = new Date().toLocaleDateString("en-US", options)
+  const day = date.getDate()
+  
   res.render("list", {
     listTitle: day,
     items: days
@@ -36,6 +31,10 @@ app.get("/work", (req, res)=>{
     listTitle: "Work list",
     items: workItems
   })
+})
+
+app.get("/about", (req, res)=>{
+  res.render("about")
 })
 
 //post:
