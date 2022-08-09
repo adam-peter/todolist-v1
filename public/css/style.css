@@ -1,0 +1,8 @@
+body{
+  margin: 3%;
+}
+
+.form-container{
+  display: flex;
+  align-items: center;
+}
